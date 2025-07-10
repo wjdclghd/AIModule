@@ -1,0 +1,25 @@
+{
+  "configurations" : [
+    {
+      "id" : "D84D02AD-4ED6-45AF-84B2-392703707F73",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+
+  },
+  "testTargets" : [
+    {
+      "parallelizable" : true,
+      "target" : {
+        "containerPath" : "container:AIModule.xcodeproj",
+        "identifier" : "79289F312E1F5FF8007C4B58",
+        "name" : "AIModuleTests"
+      }
+    }
+  ],
+  "version" : 1
+}
