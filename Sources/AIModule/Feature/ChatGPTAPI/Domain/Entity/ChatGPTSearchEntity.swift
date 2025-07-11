@@ -6,3 +6,8 @@
 //
 
 import Foundation
+
+public struct ChatGPTSearchEntity: Identifiable, Codable, Hashable {
+    public let searchKeyword: String
+    public var id: String { searchKeyword }
+}

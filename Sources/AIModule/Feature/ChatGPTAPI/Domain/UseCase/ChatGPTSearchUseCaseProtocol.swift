@@ -6,3 +6,8 @@
 //
 
 import Foundation
+import Combine
+
+public protocol ChatGPTSearchUseCaseProtocol{
+    func chatGPTSearchUseCaseProtocol(searchKeyword: String) -> AnyPublisher<[ChatGPTSearchEntity], Error>
+}
