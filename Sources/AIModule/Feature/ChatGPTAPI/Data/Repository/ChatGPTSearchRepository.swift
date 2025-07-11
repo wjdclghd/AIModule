@@ -6,3 +6,20 @@
 //
 
 import Foundation
+import Combine
+import CoreModule
+
+public final class ChatGPTSearchRepository: ChatGPTSearchRepositoryProtocol {
+    private let networkServiceProtocol: NetworkServiceProtocol
+
+    public init(networkServiceProtocol: NetworkServiceProtocol) {
+        self.networkServiceProtocol = networkServiceProtocol
+    }
+
+    public func chatGPTSearchRepositoryProtocol(searchKeyword: String) -> AnyPublisher<ChatGPTSearchListEntity, Error> {
+        networkServiceProtocol.request(.chatGPTSearch(searchKeyword: searchKeyword), type: ChatGPTSearchResDTO.self)
+            .map { $0.toEntity() }
+            .mapError { $0 as Error }
+            .eraseToAnyPublisher()
+    }
+}
