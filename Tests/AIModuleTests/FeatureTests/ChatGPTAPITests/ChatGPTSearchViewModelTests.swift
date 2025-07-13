@@ -36,10 +36,10 @@ final class ChatGPTSearchViewModelTests: XCTestCase {
 
         testChatGPTSearchViewModel.$chatGPTSearchResults
             .dropFirst()
-            .sink { results in
-                XCTAssertEqual(results.count, 2)
-                XCTAssertEqual(results.first?.searchKeyword, "TestChatGPTSearchKeyword1")
-                XCTAssertEqual(results.last?.searchKeyword, "TestChatGPTSearchKeyword2")
+            .sink { testResults in
+                XCTAssertEqual(testResults.count, 2)
+                XCTAssertEqual(testResults.first?.searchKeyword, "TestChatGPTSearchKeyword1")
+                XCTAssertEqual(testResults.last?.searchKeyword, "TestChatGPTSearchKeyword2")
                 
                 testExpectation.fulfill()
             }

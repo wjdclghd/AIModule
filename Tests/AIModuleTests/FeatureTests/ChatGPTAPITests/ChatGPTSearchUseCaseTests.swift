@@ -30,36 +30,42 @@ final class ChatGPTSearchUseCaseTests: XCTestCase {
         testCancellables = nil
     }
     
-    func testChatGPTSearchUseCaseSuccess() {
-        let testExpectation = expectation(description: "TestChatGPTSearchUseCase")
+    func testChatGPTSearchUseCaseProtocol() {
+        let testExpectation = expectation(description: "TestChatGPTSearchUseCaseProtocol")
 
         testChatGPTSearchUseCase.chatGPTSearchUseCaseProtocol(searchKeyword: "TestChatGPTSearchKeyword")
-            .sink(receiveCompletion: { completion in
-                if case let .failure(error) = completion {
-                    XCTFail("Success: \(error)")
-                }
-            }, receiveValue: { results in
-                XCTAssertEqual(results.count, 2)
-                XCTAssertEqual(results.first?.searchKeyword, "TestChatGPTSearchKeyword1")
-                XCTAssertEqual(results.last?.searchKeyword, "TestChatGPTSearchKeyword2")
-                testExpectation.fulfill()
+            .sink(
+                receiveCompletion: { testCompletion in
+                    if case .failure(let testError) = testCompletion {
+                        XCTFail("TestError: \(testError)")
+                    }
+                },
+                receiveValue: { testResults in
+                    XCTAssertEqual(testResults.count, 2)
+                    XCTAssertEqual(testResults.first?.searchKeyword, "TestChatGPTSearchKeyword1")
+                    XCTAssertEqual(testResults.last?.searchKeyword, "TestChatGPTSearchKeyword2")
+                
+                    testExpectation.fulfill()
             })
             .store(in: &testCancellables)
 
         wait(for: [testExpectation], timeout: 1.5)
     }
 
-    func testChatGPTSearchUseCaseFail() {
-        let testExpectation = expectation(description: "TestChatGPTSearchUseCase")
+    func testChatGPTSearchUseCaseProtocolEmpty() {
+        let testExpectation = expectation(description: "TestChatGPTSearchUseCaseProtocolEmpty")
 
-        testChatGPTSearchUseCase.chatGPTSearchUseCaseProtocol(searchKeyword: "   ")
-            .sink(receiveCompletion: { completion in
-                if case let .failure(error) = completion {
-                    XCTFail("Fail: \(error)")
-                }
-            }, receiveValue: { results in
-                XCTAssertTrue(results.isEmpty)
-                testExpectation.fulfill()
+        testChatGPTSearchUseCase.chatGPTSearchUseCaseProtocol(searchKeyword: " ")
+            .sink(
+                receiveCompletion: { testCompletion in
+                    if case .failure(let testError) = testCompletion {
+                        XCTFail("TestError: \(testError)")
+                    }
+                },
+                receiveValue: { testResults in
+                    XCTAssertTrue(testResults.isEmpty)
+                
+                    testExpectation.fulfill()
             })
             .store(in: &testCancellables)
 
