@@ -7,7 +7,7 @@
 
 import Foundation
 import Combine
-import CoreModule
+import CoreNetwork
 
 public final class ChatGPTSearchRepository: ChatGPTSearchRepositoryProtocol {
     private let networkServiceProtocol: NetworkServiceProtocol

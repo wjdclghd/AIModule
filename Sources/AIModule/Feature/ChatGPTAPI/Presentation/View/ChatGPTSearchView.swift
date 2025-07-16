@@ -18,7 +18,7 @@ public struct ChatGPTSearchView: View {
     
     public var body: some View {
         VStack(spacing: 0) {
-            TextField("검색어를 입력하세요", text: searchKeyword)
+            TextField("검색어를 입력하세요", text: $searchKeyword)
                 .textFieldStyle(.roundedBorder)
                 .padding()
                 .onSubmit {

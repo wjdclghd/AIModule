@@ -7,10 +7,10 @@
 
 import Foundation
 
-public struct ChatGPTSearchResDTO : Decoder {
+public struct ChatGPTSearchResDTO : Decodable {
     public let choices: [Choice]
     
-    public struct Choice: Decoder {
+    public struct Choice: Decodable {
         public let message: Message
         
         public struct Message: Decodable {
@@ -28,7 +28,7 @@ public struct ChatGPTSearchResDTO : Decoder {
     public let model: String
     public let usage: Usage
     
-    public struct Usage: Decoder {
+    public struct Usage: Decodable {
         public let prompt_tokens: Int
         public let completion_tokens: Int
         public let total_totens: Int
