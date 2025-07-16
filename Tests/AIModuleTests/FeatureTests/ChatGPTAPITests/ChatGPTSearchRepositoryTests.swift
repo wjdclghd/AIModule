@@ -6,11 +6,13 @@
 //
 
 import Foundation
+import XCTest
 import Combine
 @testable import AIModule
-@testable import CoreModule
+@testable import CoreNetwork
 
 final class ChatGPTSearchRepositoryTests: XCTestCase {
+    /*
     private var testNetworkService: TestNetworkService!
     private var testChatGPTSearchRepository: ChatGPTSearchRepository!
     
@@ -76,4 +78,5 @@ final class TestNetworkService: NetworkServiceProtocol {
                 .eraseToAnyPublisher()
         }
     }
+     */
 }

@@ -9,9 +9,9 @@ import Foundation
 import Combine
 
 public final class ChatGPTSearchViewModel: ObservableObject {
-    @Published public var isLoading: Bool = false
-    @Published public var errorMessage: String? = nil
-    @Published public(set) var chatGPTSearchResults: [ChatGPTSearchEntity] = []
+    @Published private(set) var chatGPTSearchResults: [ChatGPTSearchEntity] = []
+    @Published private(set) var isLoading: Bool = false
+    @Published private(set) var errorMessage: String? = nil
 
     private let useCase: ChatGPTSearchUseCaseProtocol
     private var cancellables = Set<AnyCancellable>()
@@ -41,9 +41,9 @@ public final class ChatGPTSearchViewModel: ObservableObject {
             .store(in: &cancellables)
     }
 
-    public func chatGPTClear() {
-        self.searchKeyword = ""
-        self.errorMessage = nil
-        self.chatGPTSearchResults = []
-    }
+//    public func chatGPTClear() {
+//        self.searchKeyword = ""
+//        self.errorMessage = nil
+//        self.chatGPTSearchResults = []
+//    }
 }
