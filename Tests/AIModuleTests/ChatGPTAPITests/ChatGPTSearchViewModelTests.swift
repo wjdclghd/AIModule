@@ -32,7 +32,6 @@ final class ChatGPTSearchViewModelTests: XCTestCase {
     
     func testChatGPTSearchResultsSuccess() {
         let testExpectation = expectation(description: "TestChatGPTSearchViewModel")
-        let testSearchKeyword = ["TestChatGPTSearchKeyword1", "TestChatGPTSearchKeyword2"]
 
         testChatGPTSearchViewModel.$chatGPTSearchResults
             .dropFirst()

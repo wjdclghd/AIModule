@@ -12,7 +12,6 @@ import Combine
 @testable import CoreNetwork
 
 final class ChatGPTSearchRepositoryTests: XCTestCase {
-    /*
     private var testNetworkService: TestNetworkService!
     private var testChatGPTSearchRepository: ChatGPTSearchRepository!
     
@@ -20,7 +19,7 @@ final class ChatGPTSearchRepositoryTests: XCTestCase {
     
     override func setUpWithError() throws {
         testNetworkService = TestNetworkService()
-        testChatGPTSearchRepository = ChatGPTSearchRepository(repository: testNetworkService)
+        testChatGPTSearchRepository = ChatGPTSearchRepository(networkServiceProtocol: testNetworkService)
         
         testCancellables = []
     }
@@ -35,12 +34,18 @@ final class ChatGPTSearchRepositoryTests: XCTestCase {
     func testChatGPTSearchRepositoryReturns() {
         let testExpectation = expectation(description: "TestChatGPTSearchRepositoryReturns")
 
-        let dto = ChatGPTSearchResDTO(results: [
-            ChatGPTSearchResDTO.Result(searchKeyword: "TestChatGPTSearchKeyword1"),
-            ChatGPTSearchResDTO.Result(searchKeyword: "TestChatGPTSearchKeyword2")
-        ])
+        let dto = ChatGPTSearchResDTO(
+            choices: [
+                .init(message: .init(role: "assistant", content: "TestChatGPTSearchKeyword1, TestChatGPTSearchKeyword2"), index: 0, finish_reason: "stop")
+            ],
+            id: "id",
+            object: "chat.completion",
+            created: 0,
+            model: "gpt-4",
+            usage: .init(prompt_tokens: 1, completion_tokens: 1, total_totens: 2)
+        )
         
-        testNetworkService.stubbedResponse = .success(dto)
+        testNetworkService.stubbedResponse = dto
 
         testChatGPTSearchRepository.chatGPTSearchRepositoryProtocol(searchKeyword: "TestChatGPTSearchKeyword")
             .sink(
@@ -63,13 +68,10 @@ final class ChatGPTSearchRepositoryTests: XCTestCase {
 }
 
 final class TestNetworkService: NetworkServiceProtocol {
+    var stubbedResponse: Any?
+    
     func request<T>(_ endpoint: APIEndpoint, type: T.Type) -> AnyPublisher<T, NetworkError> where T: Decodable, T: Sendable {
-        let dto = ChatGPTSearchResDTO(results: [
-            ChatGPTSearchResDTO.Result(searchKeyword: "TestChatGPTSearchKeyword1"),
-            ChatGPTSearchResDTO.Result(searchKeyword: "TestChatGPTSearchKeyword2")
-        ])
-        
-        if let testData = dto as? T {
+        if let testData = stubbedResponse as? T {
             return Just(testData)
                 .setFailureType(to: NetworkError.self)
                 .eraseToAnyPublisher()
@@ -78,5 +80,4 @@ final class TestNetworkService: NetworkServiceProtocol {
                 .eraseToAnyPublisher()
         }
     }
-     */
 }
