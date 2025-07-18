@@ -11,9 +11,12 @@ import SwiftUI
 public struct ChatGPTSearchView: View {
     @State private var searchKeyword: String = ""
     @StateObject private var viewModel: ChatGPTSearchViewModel
+    
+    private let onPush: () -> Void
 
-    init(viewModel: @autoclosure @escaping () -> ChatGPTSearchViewModel, onPush: @escaping (String) -> Void) {
+    init(viewModel: @autoclosure @escaping () -> ChatGPTSearchViewModel, onPush: @escaping () -> Void) {
         _viewModel = StateObject(wrappedValue: viewModel())
+        self.onPush = onPush
     }
     
     public var body: some View {
